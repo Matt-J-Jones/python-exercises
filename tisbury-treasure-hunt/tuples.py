@@ -7,8 +7,7 @@ def get_coordinate(record):
     :param record: tuple - with a (treasure, coordinate) pair.
     :return: str - the extracted map coordinate.
     """
-
-    pass
+    return record[1]
 
 
 def convert_coordinate(coordinate):
@@ -18,7 +17,7 @@ def convert_coordinate(coordinate):
     :return: tuple - the string coordinate split into its individual components.
     """
 
-    pass
+    return (coordinate[0], coordinate[1])
 
 
 def compare_records(azara_record, rui_record):
@@ -27,9 +26,11 @@ def compare_records(azara_record, rui_record):
     :param azara_record: tuple - a (treasure, coordinate) pair.
     :param rui_record: tuple - a (location, tuple(coordinate_1, coordinate_2), quadrant) trio.
     :return: bool - do the coordinates match?
+    ('Antique Glass Fishnet Float', '3D'), ('Deserted Docks', ('2', 'A'), 'Blue')
     """
-
-    pass
+    if azara_record[1] == "".join([rui_record[1][0], rui_record[1][1]]):
+        return True
+    return False
 
 
 def create_record(azara_record, rui_record):
@@ -39,8 +40,9 @@ def create_record(azara_record, rui_record):
     :param rui_record: tuple - a (location, coordinate, quadrant) trio.
     :return: tuple or str - the combined record (if compatible), or the string "not a match" (if incompatible).
     """
-
-    pass
+    if compare_records(azara_record, rui_record):
+        return (azara_record[0], azara_record[1], rui_record[0], rui_record[1], rui_record[2])
+    return "not a match"
 
 
 def clean_up(combined_record_group):
@@ -52,6 +54,12 @@ def clean_up(combined_record_group):
     The return statement should be a multi-lined string with items separated by newlines.
 
     (see HINTS.md for an example).
+    input = ('Scrimshawed Whale Tooth', '2A', 'Deserted Docks', ('2', 'A'), 'Blue')
+    output = ('Scrimshawed Whale Tooth', 'Deserted Docks', ('2', 'A'), 'Blue')\n
     """
-
-    pass
+    cleaned_record = []
+    for record in combined_record_group:
+        results_text = "('{0}', '{1}', {2}, '{3}')"
+        cleaned_record_temp = results_text.format(record[0],record[2],record[3],record[4])
+        cleaned_record.append(cleaned_record_temp)
+    return "\n".join(cleaned_record)+"\n"
